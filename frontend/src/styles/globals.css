@@ -1,0 +1,39 @@
+/* Base styles ported from the design. Fonts loaded via index.html. */
+@import './tokens.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(1100px 500px at 85% -10%, rgba(25, 167, 206, 0.18), transparent 60%),
+    radial-gradient(900px 500px at -10% 30%, rgba(255, 122, 107, 0.06), transparent 60%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-feature-settings: 'ss01', 'cv11', 'tnum';
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color var(--t),
+    color var(--t);
+}
+
+.mono {
+  font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}

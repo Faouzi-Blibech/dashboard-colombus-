@@ -1,0 +1,48 @@
+/* Design tokens — Colombus Capital (ported from the approved Claude design). */
+:root {
+  --primary: #0b2447; /* deep brand navy */
+  --secondary: #19a7ce; /* brand blue accent */
+  --accent: #c8a84b; /* gold */
+  --accent-dim: #8b7434;
+  --coral: #ff7a6b; /* brand CTA coral */
+  --coral-2: #ff5c4a;
+  --bg: #0b2447;
+  --bg-soft: #102c55;
+  --surface: #11305e;
+  --surface-2: #163770;
+  --border: #1f4380;
+  --border-2: #2a55a0;
+  --text: #f0f4f8;
+  --text-mute: #9fb6d6;
+  --text-dim: #6a85ab;
+  --nav-bg: #0b2447;
+
+  --risk-low: #22c55e;
+  --risk-med: #f59e0b;
+  --risk-high: #ef4444;
+
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-lg: 12px;
+
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.02) inset, 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 0 1px var(--border-2), 0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 24px rgba(200, 168, 75, 0.06);
+
+  --t: 160ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light theme — matches the Colombus marketing site body. Nav stays navy. */
+body.light {
+  --bg: #f4f6fa;
+  --bg-soft: #eceff5;
+  --surface: #ffffff;
+  --surface-2: #f7f9fc;
+  --border: #e0e6f0;
+  --border-2: #c7d2e2;
+  --text: #0b2447;
+  --text-mute: #4f6480;
+  --text-dim: #7b8ba3;
+  --shadow-card: 0 1px 2px rgba(11, 36, 71, 0.04), 0 8px 24px rgba(11, 36, 71, 0.06);
+  --shadow-glow: 0 0 0 1px var(--border-2), 0 10px 24px rgba(11, 36, 71, 0.08);
+}
