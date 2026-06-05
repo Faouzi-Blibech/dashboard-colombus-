@@ -50,12 +50,20 @@ def get_or_generate_commentary(
     )
     commentary = response.choices[0].message.content.strip()
 
-    db.add(models.AiCommentary(
-        base_currency=base,
-        quote_currency=quote,
-        date=target_date,
-        commentary=commentary,
-    ))
-    db.commit()
+    try:
+        db.add(models.AiCommentary(
+            base_currency=base,
+            quote_currency=quote,
+            date=target_date,
+            commentary=commentary,
+        ))
+        db.commit()
+    except Exception:
+        db.rollback()
+        existing = db.query(models.AiCommentary).filter_by(
+            base_currency=base, quote_currency=quote, date=target_date
+        ).first()
+        if existing:
+            return existing.commentary, True
 
     return commentary, False
