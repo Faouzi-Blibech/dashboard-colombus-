@@ -134,3 +134,24 @@ def get_high_low(
     except ValueError as e:
         raise HTTPException(422, str(e))
     return schemas.HighLowOut(**result)
+
+
+@router.get("/{base}/{quote}/volatility", response_model=schemas.VolatilityOut)
+def get_volatility(
+    base: str,
+    quote: str,
+    from_date: date = Query(default_factory=lambda: date.today() - timedelta(days=60)),
+    to_date: date = Query(default_factory=date.today),
+    db: Session = Depends(get_db),
+):
+    base, quote = base.upper(), quote.upper()
+    _validate_pair(base, quote)
+    if from_date > to_date:
+        raise HTTPException(400, "Invalid date range")
+    _ensure_rates_cached(db, base, quote, from_date, to_date)
+    df = analytics.load_rates_df(db, base, quote, from_date, to_date)
+    try:
+        result = analytics.calc_volatility(df)
+    except ValueError as e:
+        raise HTTPException(422, str(e))
+    return schemas.VolatilityOut(**result)
