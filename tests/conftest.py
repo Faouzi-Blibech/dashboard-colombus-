@@ -3,9 +3,15 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.database import Base, get_db
-from app.main import app
+from app import main
+import tempfile
+import os
 
-TEST_DATABASE_URL = "sqlite:///:memory:"
+# Use a temporary file for testing instead of in-memory
+# to avoid connection pool issues with in-memory SQLite
+_test_db_fd, _test_db_path = tempfile.mkstemp(suffix=".db")
+os.close(_test_db_fd)
+TEST_DATABASE_URL = f"sqlite:///{_test_db_path}"
 
 
 @pytest.fixture
@@ -23,7 +29,11 @@ def db_session():
 def client(db_session):
     def override_get_db():
         yield db_session
-    app.dependency_overrides[get_db] = override_get_db
-    client = TestClient(app)
+
+    # Override on the main app
+    main.app.dependency_overrides[get_db] = override_get_db
+
+    # Use the main app with the override
+    client = TestClient(main.app)
     yield client
-    app.dependency_overrides.clear()
+    main.app.dependency_overrides.clear()
