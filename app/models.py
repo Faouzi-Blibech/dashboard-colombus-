@@ -31,6 +31,7 @@ class Alert(Base):
     daily_change_pct = Column(Float, nullable=False)
     message = Column(Text, nullable=False)
     created_at = Column(DateTime, server_default=func.now())
+    __table_args__ = (UniqueConstraint("base_currency", "quote_currency", "date"),)
 
 
 class AiCommentary(Base):
@@ -41,3 +42,4 @@ class AiCommentary(Base):
     date = Column(Date, nullable=False)
     commentary = Column(Text, nullable=False)
     created_at = Column(DateTime, server_default=func.now())
+    __table_args__ = (UniqueConstraint("base_currency", "quote_currency", "date"),)

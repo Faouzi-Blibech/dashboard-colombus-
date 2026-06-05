@@ -2,16 +2,19 @@ from pydantic import BaseModel
 from datetime import date
 from typing import Optional
 
+_ORM_CONFIG = {"from_attributes": True}
+
 
 class CurrencyOut(BaseModel):
     code: str
     name: str
-    model_config = {"from_attributes": True}
+    model_config = _ORM_CONFIG
 
 
 class RatePoint(BaseModel):
     date: date
     rate: float
+    model_config = _ORM_CONFIG
 
 
 class DailyChangeOut(BaseModel):
@@ -19,6 +22,7 @@ class DailyChangeOut(BaseModel):
     rate: float
     prev_rate: float
     change_pct: float
+    model_config = _ORM_CONFIG
 
 
 class PerformanceOut(BaseModel):
@@ -28,6 +32,7 @@ class PerformanceOut(BaseModel):
     start_rate: float
     end_rate: float
     change_pct: float
+    model_config = _ORM_CONFIG
 
 
 class HighLowOut(BaseModel):
@@ -35,12 +40,14 @@ class HighLowOut(BaseModel):
     high_date: date
     low: float
     low_date: date
+    model_config = _ORM_CONFIG
 
 
 class VolatilityOut(BaseModel):
     rolling_21d_std: float
     annualized_vol: float
     latest_date: date
+    model_config = _ORM_CONFIG
 
 
 class AlertOut(BaseModel):
@@ -48,6 +55,7 @@ class AlertOut(BaseModel):
     risk_level: str
     daily_change_pct: float
     message: str
+    model_config = _ORM_CONFIG
 
 
 class PairSummary(BaseModel):
@@ -55,6 +63,7 @@ class PairSummary(BaseModel):
     daily_change_pct: float
     volatility: Optional[float]
     risk_level: str
+    model_config = _ORM_CONFIG
 
 
 class AnalysisSummaryOut(BaseModel):
@@ -62,6 +71,7 @@ class AnalysisSummaryOut(BaseModel):
     most_stable: str
     biggest_mover: str
     pairs: list[PairSummary]
+    model_config = _ORM_CONFIG
 
 
 class CommentaryRequest(BaseModel):
@@ -74,3 +84,4 @@ class CommentaryOut(BaseModel):
     commentary: str
     date: date
     cached: bool
+    model_config = _ORM_CONFIG
