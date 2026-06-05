@@ -5,3 +5,7 @@ __pycache__/
 *.db
 .venv/
 venv/
+.claude/
+plan.md
+research
+*.pdf
