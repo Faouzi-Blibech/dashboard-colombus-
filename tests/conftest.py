@@ -6,12 +6,14 @@ from app.database import Base, get_db
 from app import main
 import tempfile
 import os
+import atexit
 
 # Use a temporary file for testing instead of in-memory
 # to avoid connection pool issues with in-memory SQLite
 _test_db_fd, _test_db_path = tempfile.mkstemp(suffix=".db")
 os.close(_test_db_fd)
 TEST_DATABASE_URL = f"sqlite:///{_test_db_path}"
+atexit.register(lambda: os.path.exists(_test_db_path) and os.remove(_test_db_path))
 
 
 @pytest.fixture
