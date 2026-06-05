@@ -53,7 +53,7 @@ class VolatilityOut(BaseModel):
 class AlertOut(BaseModel):
     date: date
     risk_level: str
-    daily_change_pct: float
+    change_pct: float
     message: str
     model_config = _ORM_CONFIG
 
